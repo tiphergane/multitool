@@ -1,0 +1,18 @@
+#!/system/bin/sh
+
+if [ ! -f "/hboot_7230_0.84.2000_100908.nb0" ]
+then
+	echo "Hboot module not found, please run check first!!!"
+else
+	echo ""
+	echo "La ca peut faire bobo, tu as 10 sec pour faire CTRL+C"
+	echo "si tu as peur d'allez jusqu'au bout
+	echo ""
+	busybox sleep 10
+	
+busybox dd if=/Z/hboot_7230_0.84.2000_100908.nb0 of=/dev/block/mmcblk0p18
+
+	echo ""
+
+
+fi

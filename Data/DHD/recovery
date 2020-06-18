@@ -1,0 +1,31 @@
+#!/system/bin/sh
+
+if [ ! -f "/sdcard/DHD/recovery.img" ]
+then
+	echo "Please supply a custom recovery image yourself and place it into the DHD folder named recovery.img!"
+	exit
+fi
+
+if [ ! -f "/sdcard/DHD/wpx.ko" ]
+then
+	echo "Kernel module not found, please run check first!!!"
+else
+	busybox insmod /sdcard/DHD/wpx.ko
+
+	echo ""
+	echo "If you get this error:"
+	echo ""
+	echo "insmod: init_module '/sdcard/DHD/wpx.ko' failed (Function not implemented)"
+	echo ""
+	echo "or"
+	echo ""
+	echo "insmod: can't insert '/sdcard/DHD/wpx.ko': Function not implemented"
+	echo ""
+	echo "This means the module worked ;)"
+	echo ""
+
+	busybox sleep 5
+
+	busybox dd if=/sdcard/DHD/recovery.img of=/dev/block/mmcblk0p21
+fi
+

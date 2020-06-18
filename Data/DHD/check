@@ -1,0 +1,22 @@
+#!/system/bin/sh
+
+busybox md5sum /sdcard/DHD/hboot_eng.nb0
+echo "df4fd77f44993eb05a4732210d2eddc6 << CORRECT MD5"
+
+echo ""
+echo "Si les MD5 ne correspondent pas, NE PAS CONTINUER"
+echo ""
+
+echo "Creation du module pour votre version:"
+cat /proc/version | busybox grep "Linux version" | busybox sed -n "s/[^-]*-//p" | busybox sed -e "s/^\(.\{8\}\).*/\1/"
+echo ""
+
+cat /sdcard/DHD/wpthis.ko | busybox sed -e "s/12345678/`cat /proc/version | busybox grep "Linux version" | busybox sed -n "s/[^-]*-//p" | busybox sed -e "s/^\(.\{8\}\).*/\1/"`/" > /sdcard/DHD/wpx.ko
+
+echo "Test kernel module:"
+echo ""
+
+busybox insmod /sdcard/DHD/wpx.ko
+
+busybox sleep 5
+

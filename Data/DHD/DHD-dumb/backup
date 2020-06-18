@@ -1,0 +1,31 @@
+#!/system/bin/sh
+
+#if [ ! -f "/sdcard/DHD/hboot_orig0.bin" ]
+#then
+	busybox dd if=/dev/block/mmcblk0p18 of=/sdcard/DHD/hboot_orig0.bin
+	busybox dd if=/dev/block/mmcblk0p18 of=/sdcard/DHD/hboot_orig1.bin
+	busybox dd if=/dev/block/mmcblk0p21 of=/sdcard/DHD/recovery_orig0.bin
+	busybox dd if=/dev/block/mmcblk0p21 of=/sdcard/DHD/recovery_orig1.bin
+
+	busybox md5sum /sdcard/DHD/*.bin > /sdcard/DHD/MD5sums_orig.txt
+
+	echo ""
+	echo "Backup made!"
+#else
+#	echo "It seems that a backup was already made!"
+#fi
+
+echo ""
+
+busybox md5sum /sdcard/DHD/hboot_orig*
+
+echo ""
+echo "DO NOT CONTINUE IF THE ABOVE MD5 SUMS DO NOT MATCH"
+echo "SOMETHING IS HORRIBLY WRONG IF THEY DO NOT MATCH"
+echo "YOUR PHONE WILL LIKELY BE BRICKED IF YOU DO CONTINUE"
+echo "YOU HAVE BEEN WARNED!!!"
+echo ""
+echo ""
+echo "Please continue as follows to flash the bootloader and get S-OFF (HBOOT):"
+echo ""
+echo "sh /sdcard/DHD/hboot"

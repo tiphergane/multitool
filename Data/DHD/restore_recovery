@@ -1,0 +1,27 @@
+#!/system/bin/sh
+
+if [ ! -f "/sdcard/DHD/wpx.ko" ]
+then
+	echo "Kernel module not found, can not continue any further!!!"
+else
+	busybox insmod /sdcard/DHD/wpx.ko
+
+	echo ""
+	echo "If you get this error:"
+	echo ""
+	echo "insmod: init_module '/sdcard/DHD/wpx.ko' failed (Function not implemented)"
+	echo ""
+	echo "or"
+	echo ""
+	echo "insmod: can't insert '/sdcard/DHD/wpx.ko': Function not implemented"
+	echo ""
+	echo "This means the module worked ;)"
+	echo ""
+
+	busybox sleep 5
+
+	busybox dd if=/sdcard/DHD/recovery_orig0.bin of=/dev/block/mmcblk0p21
+
+	echo ""
+	echo "Recovery should now be restored."
+fi

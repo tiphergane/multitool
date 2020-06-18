@@ -1,0 +1,19 @@
+#!/system/bin/sh
+
+if [ ! -f "/sdcard/Z/wpthis-Z.ko" ]
+then
+	echo "Kernel module not found, please run check first!!!"
+else
+	busybox insmod /sdcard/Z/wpthis-Z.ko
+
+	echo ""
+	echo "If you get this error:"
+	echo ""
+	echo "insmod: init_module 'wpthis-Z.ko' failed (Function not implemented)"
+	echo ""
+	echo "This means the module worked ;)"
+	echo ""
+
+	busybox sleep 5
+
+fi

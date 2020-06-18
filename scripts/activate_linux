@@ -1,0 +1,8 @@
+#!/usr/bin/sh
+echo "CHMOD en cours d'ADB, FASTBOOT, reflash package et nbimg"
+chmod +x ./Data/adb-linux
+chmod +x ./Data/fastboot
+chmod +x ./Data/nbimg
+chmod +x ./Data/D/linux/reflash
+echo "fin"
+sleep 5

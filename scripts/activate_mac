@@ -1,0 +1,7 @@
+#!/usr/bin/sh
+echo "CHMOD en cours d'ADB, FASTBOOT et nbimg"
+chmod +x ./Data/adb-mac
+chmod +x ./Data/fastboot-mac
+chmod +x ./Data/nbimg_mac
+echo "fin"
+sleep 5

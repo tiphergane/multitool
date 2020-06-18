@@ -1,0 +1,11 @@
+--- ..\tool\WINDOWS\multitool DHD.bat	2012-03-13 18:07:11.421875000 +0100
++++ ..\tool\WINDOWS\multitool DHD ok.bat	2012-03-13 18:06:28.578125000 +0100
+@@ -465,7 +465,7 @@
+ %adb% push %zerg% /data/local/tmp
+ %adb% shell chmod 777 /data/local/tmp/fre3vo
+ %adb% shell chmod 777 /data/local/tmp/misc_version
+-%adb% shell './data/local/tmp/fre3vo -debug -start FAA90000 -end FFFFFFFF'
++%adb% shell ./data/local/tmp/fre3vo -debug -start FAA90000 -end FFFFFFFF
+ %adb% wait-for-device
+ %adb% shell su -c '/data/local/tmp/misc_version -s 1.31.405.6'
+ echo nice done

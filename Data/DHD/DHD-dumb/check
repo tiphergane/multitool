@@ -1,0 +1,37 @@
+#!/system/bin/sh
+
+busybox md5sum /sdcard/DHD/hboot_eng.nb0
+echo "df4fd77f44993eb05a4732210d2eddc6 << CORRECT MD5"
+
+echo ""
+echo "If the above MD5 sums do not match ... DO NOT CONTINUE!!!"
+echo "Something went wrong with the download or extracting this archive!"
+echo ""
+
+echo "Making kernel module for version:"
+cat /proc/version | busybox grep "Linux version" | busybox sed -n "s/[^-]*-//p" | busybox sed -e "s/^\(.\{8\}\).*/\1/"
+echo ""
+
+cat /sdcard/DHD/wpthis.ko | busybox sed -e "s/12345678/`cat /proc/version | busybox grep "Linux version" | busybox sed -n "s/[^-]*-//p" | busybox sed -e "s/^\(.\{8\}\).*/\1/"`/" > /sdcard/DHD/wpx.ko
+
+echo "Testing kernel module:"
+echo ""
+
+busybox insmod /sdcard/DHD/wpx.ko
+
+busybox sleep 5
+
+echo ""
+echo "If you get this error:"
+echo ""
+echo "insmod: init_module '/sdcard/DHD/wpx.ko' failed (Function not implemented)"
+echo ""
+echo "or"
+echo ""
+echo "insmod: can't insert '/sdcard/DHD/wpx.ko': Function not implemented"
+echo ""
+echo "This means the module worked ;)"
+echo ""
+echo "You can now continue with:"
+echo ""
+echo "sh /sdcard/DHD/backup"

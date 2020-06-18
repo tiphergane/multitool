@@ -1,0 +1,32 @@
+#!/system/bin/sh
+
+if [ ! -f "/sdcard/DHD/wpx.ko" ]
+then
+	echo "Kernel module not found, please run check first!!!"
+else
+	busybox insmod /sdcard/DHD/wpx.ko
+
+	echo ""
+	echo "If you get this error:"
+	echo ""
+	echo "insmod: init_module '/sdcard/DHD/wpx.ko' failed (Function not implemented)"
+	echo ""
+	echo "or"
+	echo ""
+	echo "insmod: can't insert '/sdcard/DHD/wpx.ko': Function not implemented"
+	echo ""
+	echo "This means the module worked ;)"
+	echo ""
+
+	busybox sleep 5
+
+	busybox dd if=/sdcard/DHD/hboot_eng.nb0 of=/dev/block/mmcblk0p18
+	busybox dd if=/dev/block/mmcblk0p18 of=/sdcard/DHD/hboot_check.nb0
+
+	echo ""
+
+	busybox md5sum /sdcard/DHD/hboot_check.nb0
+	echo "df4fd77f44993eb05a4732210d2eddc6 << CORRECT MD5"
+	busybox md5sum /sdcard/DHD/hboot_orig0.bin
+
+fi

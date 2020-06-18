@@ -1,0 +1,36 @@
+#!/system/bin/sh
+
+if [ ! -f "/sdcard/DHD/wpx.ko" ]
+then
+	echo "Kernel module not found, can not continue any further!!!"
+else
+	busybox insmod /sdcard/DHD/wpx.ko
+
+	echo ""
+	echo "If you get this error:"
+	echo ""
+	echo "insmod: init_module '/sdcard/DHD/wpx.ko' failed (Function not implemented)"
+	echo ""
+	echo "or"
+	echo ""
+	echo "insmod: can't insert '/sdcard/DHD/wpx.ko': Function not implemented"
+	echo ""
+	echo "This means the module worked ;)"
+	echo ""
+
+	busybox sleep 5
+
+	busybox dd if=/sdcard/DHD/hboot_orig0.bin of=/dev/block/mmcblk0p18
+	busybox dd if=/dev/block/mmcblk0p18 of=/sdcard/DHD/hboot_check.bin
+
+	busybox md5sum /sdcard/DHD/hboot_orig0.bin
+	busybox md5sum /sdcard/DHD/hboot_check.bin
+
+	echo ""
+	echo "IF THE ABOVE MD5 SUMS DO NOT MATCH YOU ARE IN SERIOUS TROUBLE!!!"
+	echo "THIS SHOULD NOT HAPPEN AT ALL"
+	echo "PLEASE SEEK HELP ON THE FORUMS"
+	echo "BUT WHATEVER YOU DO DO NOT TURN OFF YOUR PHONE"
+	echo "IF YOU FAIL TODO SO IT WILL BE BRICKED"
+fi
+

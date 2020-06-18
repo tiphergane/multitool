@@ -1,0 +1,23 @@
+#!/system/bin/sh
+
+if [ ! -f "/sdcard/DHD/hboot_orig0.bin" ]
+then
+	busybox dd if=/dev/block/mmcblk0p18 of=/sdcard/DHD/hboot_orig0.bin
+	busybox dd if=/dev/block/mmcblk0p18 of=/sdcard/DHD/hboot_orig1.bin
+	busybox dd if=/dev/block/mmcblk0p21 of=/sdcard/DHD/recovery_orig0.bin
+	busybox dd if=/dev/block/mmcblk0p21 of=/sdcard/DHD/recovery_orig1.bin
+
+	busybox md5sum /sdcard/DHD/*.bin > /sdcard/DHD/MD5sums_orig.txt
+
+	echo ""
+	echo "Backup made!"
+else
+	echo "IF YOU GET '[: not found' PLEASE USE THE DUMB VERSION INSTEAD!"
+	echo ""
+	echo "Otherwise it seems that a backup was already made! :)"
+fi
+
+echo ""
+
+busybox md5sum /sdcard/DHD/hboot_orig*
+
